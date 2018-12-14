@@ -1,6 +1,8 @@
 package com.imeee.skeletons.facade;
 
 import com.imeee.skeletons.common.enumcheckable.EnumCheckable;
+import com.imeee.skeletons.facade.bizexception.DuplicateLoginException;
+import com.imeee.skeletons.facade.bizexception.IncorrcetPasswordException;
 import com.imeee.skeletons.facade.bizexception.NotLoginException;
 import lombok.Getter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -26,14 +28,13 @@ public enum BizErrorCodeEnum implements EnumCheckable {
     REQUEST_PARAM_ILLEGAL_GET("0002", "请求参数非法",BindException .class),
     REQUEST_PARAM_ILLEGAL_POST("0002", "请求参数非法",MethodArgumentNotValidException .class),
 
+    INCORRECT_PASSWORD("0003", "用户名或密码错误", IncorrcetPasswordException.class),
 
-//    MM_NO_SUCH_CATEGORY("b001", "Mobile Market 没有对应的内容分类", NoMmCategoryException.class),
-//    MM_NO_CFG_4_CATEGORY("b002", "没有对应分类的打分配置", NoEsRelativeCfgForCategoryException.class),
-//    ESRESTCLIENT_ERROR("s001", "ElasticSearch rest client 搜索接口错误,", EsRestClientException.class),
+    DUPLICATE_LOGIN("0004", "重复登陆", DuplicateLoginException.class),
 
 
     JSON_PARSE_ERROR("s002", "请求无法解释，请查看请求信息格式是否合法",HttpMessageNotReadableException .class)
-            ;
+    ;
 
 
 

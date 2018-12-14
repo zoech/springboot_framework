@@ -4,6 +4,7 @@ package com.imeee.facade.testing.api;
 import com.imeee.facade.testing.model.ValidationRequest;
 import com.imeee.skeletons.facade.basemodel.BaseResponse;
 import com.imeee.skeletons.facade.bizexception.NotLoginException;
+import com.imeee.skeletons.facade.loginInterceptor.RequireLogin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,4 +57,15 @@ public class TestController {
         return response;
     }
 
+    @RequestMapping(value = "/testRequireLogin", method = RequestMethod.POST)
+    @RequireLogin
+    public BaseResponse testRequireLogin(){
+        return BaseResponse.buildDefaultSuccessResponse();
+    }
+
+    @RequestMapping(value = "/testRequireLogin", method = RequestMethod.GET)
+    @RequireLogin
+    public BaseResponse testRequireLoginGet(){
+        return this.testRequireLogin();
+    }
 }
