@@ -53,7 +53,7 @@ __记住要透彻地将这些功能性的模块和应用实际的业务模块分
 SpringBoot的 __@ControllerAdvice__ 注解 和 __@ExceptionHandler__ 注解结合使用，可以定义系统大部分情况下发生异常时的统一处理过程，或者精确地说，可以定义controller调用中产生异常时的处理过程。
 
 要点：
-* skeletons.facade.GlobalExceptionHandler类, 定义了全局的异常处理过程，而过程中会通过Exception类型来返回不同的结果码到前端
+* skeletons.facade.exceptionResponse.GlobalExceptionHandler类, 定义了全局的异常处理过程，而过程中会通过Exception类型来返回不同的结果码到前端
 ```java
 @ControllerAdvice
 @Slf4j
@@ -77,8 +77,8 @@ public class GlobalExceptionHandler {
 
 }
 ```
-* skeletons.facade.bizexception.* , 定义的一些列业务处理异常
-* skeletons.facade.BizErrorCodeEnum类, 定义了各种统一的返回状态码，包含了对应的异常类型
+* skeletons.facade.exceptionResponse.bizexception.* , 定义的一些列业务处理异常
+* skeletons.facade.exceptionResponse.BizErrorCodeEnum类, 定义了各种统一的返回状态码，包含了对应的异常类型
 ```java
 @Getter
 public enum BizErrorCodeEnum implements EnumCheckable {
@@ -223,3 +223,19 @@ _在这个框架内，有一个简单版的基于servlet session 的登陆校验
 
 例子：
 facade.testing.api.TestController.testRequireLogin() api.
+
+
+
+### 4. 日志跟踪和流水返回
+框架带有流水返回的实现，无需人工返回请求的流水号，只要Controller的api接口返回的实体是BaseResponse类子类的实体即可。
+
+要点:
+* com.imeee.skeletons.facade.requestTracing.RequestTracingInterceptor  
+RequestTracingInterceptor中主要是在请求进来时往日志MDC里写入traceid, 然后如果GET请求则打印一下url参数
+
+* com.imeee.skeletons.facade.requestTracing.RequestTracingRequestBodyAdvice  
+RequestTracingRequestBodyAdvice 主要用来打印一下POST的请求体，即被@RequestBody标注的实体
+
+* com.imeee.skeletons.facade.requestTracing.RequestTracingResponseBodyAdvice  
+RequestTracingResponseBodyAdvice 主要是在返回前在ResponseBody里填上流水号，
+只有ResponseBody的实体是BaseResponse才支持修改
