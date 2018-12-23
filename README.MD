@@ -1,6 +1,8 @@
 # springboot_framework
 __spring boot web 应用自用框架__
 
+本文主要介绍原理，在此框架上的开发最好依照预定的规范进行，便于管理，开发规范查看本目录下的[SPECS.MD]("./SPECS.MD")
+
 ### 计划进展
 1. 添加基础的外存模块(数据库)
 2. 添加基础的权限模块
@@ -39,7 +41,7 @@ __spring boot web 应用自用框架__
 * _可配置的定时任务_
 
 api接口的代码应清晰地放置到facade目录中，按照业务模块进行划分，然后再按照api、enums、model类似的结构放置。  
-定时任务的代码则应该放到daemon目录中，目录名取自Unix like操作系统中的__守卫进程__概念。  
+定时任务的代码则应该放到daemon目录中，目录名取自Unix like操作系统中的 __守卫进程__ 概念。  
 __所有其它的模块都是为这两个功能模块所服务__
 
 ## 基础架构性功能模块
@@ -208,6 +210,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         
         // 实际的校验过程在baseUserServices.validateLogin()
         if(!baseUserServices.validateLogin()){
+            // 直接抛出NotLoginException即可,在GlobalExceptionHandler中会到BizErrorCodeEnum里找到对应的返回码返回
             throw new NotLoginException();
         }
 

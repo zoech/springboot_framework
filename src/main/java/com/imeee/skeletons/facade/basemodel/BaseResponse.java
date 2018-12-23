@@ -1,6 +1,7 @@
 package com.imeee.skeletons.facade.basemodel;
 
 import com.imeee.skeletons.facade.BizErrorCodeEnum;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -13,19 +14,28 @@ import lombok.Data;
 
 @Data
 public class BaseResponse {
-    String code; // 响应码
-    String msg; // 请求结果
 
-    String extraMsg; // 额外的返回信息
+    @ApiModelProperty(value = "返回跟踪号，用来定位请求相关的日志")
+    String seq;
+    @ApiModelProperty(value = "响应码")
+    String code;
+    @ApiModelProperty(value = "请求状态信息描述")
+    String msg;
 
-    PageData data; // 结果
+    @ApiModelProperty(value = "处理请求花费的毫秒数")
+    Long millis;
+
+    @ApiModelProperty(value = "额外的返回信息")
+    String extraMsg;
+
+    @ApiModelProperty(value = "结果")
+    PageData data;
 
     public BaseResponse(){
 
     }
 
     public BaseResponse(PageData data, String code, String msg, String extraMsg){
-//        this.seq = seq;
         this.data = data;
         this.code = code;
         this.msg = msg;
