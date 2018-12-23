@@ -2,8 +2,8 @@ package com.imeee.biz.base.service;
 
 import com.imeee.skeletons.baseService.user.BaseUserServices;
 import com.imeee.skeletons.baseService.user.LoginParams;
-import com.imeee.skeletons.facade.bizexception.DuplicateLoginException;
-import com.imeee.skeletons.facade.bizexception.IncorrcetPasswordException;
+import com.imeee.skeletons.facade.exceptionResponse.bizexception.DuplicateLoginException;
+import com.imeee.skeletons.facade.exceptionResponse.bizexception.IncorrcetPasswordException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

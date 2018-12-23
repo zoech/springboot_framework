@@ -1,4 +1,4 @@
-package com.imeee.skeletons.facade.bizexception;
+package com.imeee.skeletons.facade.exceptionResponse.bizexception;
 
 /**
  * Created with IntelliJ IDEA.

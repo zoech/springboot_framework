@@ -1,10 +1,10 @@
 package com.imeee.skeletons.facade.requestTracing;
 
 import com.imeee.skeletons.facade.basemodel.BaseResponse;
-import com.imeee.skeletons.facade.requestTracing.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.core.MethodParameter;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 @Slf4j
+@Order(1) // 指明多个 ResponseBodyAdvice 时的启动顺序
 public class RequestTracingResponseBodyAdvice implements ResponseBodyAdvice<BaseResponse> {
 
     @Override
@@ -37,7 +38,6 @@ public class RequestTracingResponseBodyAdvice implements ResponseBodyAdvice<Base
 
     @Override
     public BaseResponse beforeBodyWrite(@Nullable BaseResponse baseResponse, MethodParameter var2, MediaType var3, Class<? extends HttpMessageConverter<?>> var4, ServerHttpRequest var5, ServerHttpResponse var6){
-        log.info("in request tracing response body advice");
         String seq = (String) MDC.get(Constants.SEQ_ATTRIBUTE);
         // 返回加上请求序列号
         baseResponse.setSeq(seq);

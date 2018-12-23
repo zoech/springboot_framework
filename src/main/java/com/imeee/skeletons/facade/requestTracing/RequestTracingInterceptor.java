@@ -68,13 +68,12 @@ public class RequestTracingInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
-        // 打印请求处理结束
+        // 打印请求处理结束,顺便打印处理时长
         try {
             Long startTime = (Long) request.getAttribute(Constants.MILLIS_START);
             Long finishedTime = (Long) request.getAttribute(Constants.MILLIS_FINISHD);
 
-            // 顺便打印处理时长
-            log.info("request finished in " + (finishedTime - startTime) + "millis.");
+            log.info("request finished in " + (finishedTime - startTime) + " ms.");
         } catch (Exception e){
             log.error("print process time error", e);
             log.info("request finished.");

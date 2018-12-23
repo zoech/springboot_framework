@@ -1,9 +1,9 @@
-package com.imeee.skeletons.facade;
+package com.imeee.skeletons.facade.exceptionResponse;
 
 import com.imeee.skeletons.common.enumcheckable.EnumCheckable;
-import com.imeee.skeletons.facade.bizexception.DuplicateLoginException;
-import com.imeee.skeletons.facade.bizexception.IncorrcetPasswordException;
-import com.imeee.skeletons.facade.bizexception.NotLoginException;
+import com.imeee.skeletons.facade.exceptionResponse.bizexception.DuplicateLoginException;
+import com.imeee.skeletons.facade.exceptionResponse.bizexception.IncorrcetPasswordException;
+import com.imeee.skeletons.facade.exceptionResponse.bizexception.NotLoginException;
 import lombok.Getter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
@@ -22,7 +22,7 @@ public enum BizErrorCodeEnum implements EnumCheckable {
 
     SUCCESS("0000", "请求成功", null),
 
-    UNKNOWN_EXCEPTION("9999", "系统未知错误", null),
+    UNKNOWN_EXCEPTION("9999", "系统未知错误", null, true),
     NOT_LOGIN("0001", "未登录或者登录超时", NotLoginException.class),
 
     REQUEST_PARAM_ILLEGAL_GET("0002", "请求参数非法",BindException .class),
@@ -47,11 +47,19 @@ public enum BizErrorCodeEnum implements EnumCheckable {
     // 返回这个error code对应的异常
     private final Class<? extends Exception> exceptionClz;
 
+    // 抛出对应异常时，是否需要在日志中标记为Error打印，以便日志跟踪时定位"ERROR"字段
+    private final Boolean isError;
 
-    BizErrorCodeEnum(String code, String msg, Class<? extends Exception> exception) {
+
+    BizErrorCodeEnum(String code, String msg, Class<? extends Exception> exception, boolean isError) {
         this.code = code;
         this.msg = msg;
         this.exceptionClz = exception;
+        this.isError = isError;
+    }
+
+    BizErrorCodeEnum(String code, String msg, Class<? extends Exception> exception) {
+        this(code, msg, exception, false);
     }
 
     @Override

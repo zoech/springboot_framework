@@ -2,6 +2,7 @@ package com.imeee.facade.testing.model;
 
 import com.imeee.facade.testing.enums.GenderEnum;
 import com.imeee.skeletons.facade.inEnumValidation.InEnum;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -20,12 +21,18 @@ import javax.validation.constraints.PositiveOrZero;
 @Data
 public class ValidationRequest {
     @NotBlank
-    String msg; // 请求信息
-    @InEnum(value = GenderEnum.class, message = "gender 参数不合法")
-    Integer gender; // 男或女或保密
+    @ApiModelProperty(value = "请求信息")
+    String msg;
 
+    @ApiModelProperty(value = "性别，0男1女2保密", example = "0")
+    @InEnum(value = GenderEnum.class, message = "gender 参数不合法")
+    Integer gender;
+
+    @ApiModelProperty(value = "请求页大小，不能小于1", example = "10")
     @Positive
-    Integer pageSize; // 请求页大小
+    Integer pageSize;
+
+    @ApiModelProperty(value = "请求页码大小，1为第一页", example = "1")
     @PositiveOrZero
     Integer pageNo; // 请求页码
 }

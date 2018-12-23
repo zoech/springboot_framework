@@ -1,6 +1,6 @@
 package com.imeee.skeletons.facade.basemodel;
 
-import com.imeee.skeletons.facade.BizErrorCodeEnum;
+import com.imeee.skeletons.facade.exceptionResponse.BizErrorCodeEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

@@ -1,7 +1,7 @@
 package com.imeee.skeletons.facade.loginInterceptor;
 
 import com.imeee.skeletons.baseService.user.BaseUserServices;
-import com.imeee.skeletons.facade.bizexception.NotLoginException;
+import com.imeee.skeletons.facade.exceptionResponse.bizexception.NotLoginException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
